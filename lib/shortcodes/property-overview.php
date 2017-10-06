@@ -512,7 +512,7 @@ namespace UsabilityDynamics\WPP {
 
         //** Calculate number of pages */
         if ($wpp_query['pagination'] == 'on') {
-          $wpp_query['pages'] = ceil($wpp_query['properties']['total'] / $wpp_query['per_page']);
+          $wpp_query['pages'] = isset( $wpp_query['properties'] ) && isset( $wpp_query['properties']['total'] ) ? ceil($wpp_query['properties']['total'] / $wpp_query['per_page']) : 0;
         }
 
         $property_type = isset($wpp_query['query']['property_type']) ? $wpp_query['query']['property_type'] : false;
@@ -531,8 +531,8 @@ namespace UsabilityDynamics\WPP {
         $thumbnail_size = $wpp_query['thumbnail_size'];
 
         //* Debugger */
-        if (isset($wp_properties['configuration']['developer_mode']) && $wp_properties['configuration']['developer_mode'] == 'true' && !$wpp_query['ajax_call']) {
-          echo '<script type="text/javascript">console.log( ' . json_encode($wpp_query) . ' ); </script>';
+        if ( !defined( 'DOING_AJAX' ) && !defined( 'WP_CLI' ) && isset($wp_properties['configuration']['developer_mode']) && $wp_properties['configuration']['developer_mode'] == 'true' && !$wpp_query['ajax_call']) {
+          echo '<script type="text/javascript" data-hash="'.$unique.'">console.log( ' . json_encode($wpp_query) . ' ); </script>';
         }
 
         ob_start();

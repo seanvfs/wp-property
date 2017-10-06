@@ -35,7 +35,7 @@ namespace UsabilityDynamics\WPP {
         $id = trim( $id );
 
         extract( $args = wp_parse_args( $args, array(
-          'get_children'          => 'true',
+          'get_children'          => 'false',
           'return_object'         => 'false',
           'load_gallery'          => 'true',
           'load_thumbnail'        => 'true',

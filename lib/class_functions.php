@@ -4136,6 +4136,8 @@ class WPP_F extends UsabilityDynamics\Utility
 
     self::debug('get_properties', $args);
 
+//error_log('get_properties ' . print_r($result,true));
+
     if (!empty($result)) {
       $return = array();
       if (!empty($total)) {
@@ -5269,7 +5271,7 @@ class WPP_F extends UsabilityDynamics\Utility
     $results = apply_filters('wpp_get_properties_quantity', $results, $post_status);
 
     // set object cache
-    wp_cache_set( join( '-', $post_status ), count( $results ),  'wpp_properties_quantity' );
+    wp_cache_set( join( '-', $post_status ), count( $results ),  'wpp_properties_quantity' );;
 
     return count($results);
 
