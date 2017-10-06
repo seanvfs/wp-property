@@ -363,14 +363,17 @@ class WPP_Core {
     wp_register_style( 'wpp-jquery-swiper', WPP_URL . 'styles/swiper.min.css' );
     wp_register_style( 'wpp-jquery-colorpicker-css', WPP_URL . 'scripts/colorpicker/colorpicker.css' );
     wp_register_style( 'jquery-ui', WPP_URL . 'styles/wpp.admin.jquery.ui.css' );
-    wp_register_style( 'select2', WPP_URL . 'styles/select2.min.css' );
+
+    // added "wpp-" prefix to avoid conflict with Simple History and likely others.  
+    wp_register_style( 'wpp-select2', WPP_URL . 'styles/select2.min.css' );
+
     wp_register_style( 'wpp-jquery-ui-dialog', WPP_URL . 'styles/jquery-ui-dialog.min.css' );
 
     wp_register_style( 'wpp-fa-icons', WPP_URL . 'fonts/icons/fa/css/font-awesome.min.css', array(), '4.5.0' );
 
 
     /** Find and register stylesheet  */
-    if (!WPP_LEGACY_WIDGETS) {
+    if ( !defined( 'WPP_LEGACY_WIDGETS' ) || !WPP_LEGACY_WIDGETS ) {
       // load the new v2.3 styles
       wp_register_style('wp-property-frontend', WPP_URL . 'styles/wpp.public.v2.3.css', array(), WPP_Version);
     } else {

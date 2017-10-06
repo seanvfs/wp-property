@@ -4262,6 +4262,11 @@ class WPP_F extends UsabilityDynamics\Utility
   static public function get_all_attribute_values($slug)
   {
     global $wpdb;
+    
+
+    if( $_cached_values = wp_cache_get( $slug, 'wpp_attribute_values' ) ) {
+      return $_cached_values;
+    }
 
     // Non post_meta fields
     $non_post_meta = array(
@@ -4304,6 +4309,9 @@ class WPP_F extends UsabilityDynamics\Utility
       sort($return);
 
     }
+
+    // write to object cache  
+    wp_cache_set( $slug, $return, 'wpp_attribute_values' );
 
     return $return;
 
@@ -5241,6 +5249,10 @@ class WPP_F extends UsabilityDynamics\Utility
     global $wpdb;
     $where = '';
     
+    if( $_cached_values = wp_cache_get( join( '-', $post_status ), 'wpp_properties_quantity' ) ) {
+      return $_cached_values;
+    }
+
     /** Limiting to view only own property if user don't have edit_others_posts capability. */
     if(!current_user_can( 'edit_others_posts' )){
       global $user_ID;
@@ -5255,6 +5267,9 @@ class WPP_F extends UsabilityDynamics\Utility
     " . $where );
 
     $results = apply_filters('wpp_get_properties_quantity', $results, $post_status);
+
+    // set object cache
+    wp_cache_set( join( '-', $post_status ), count( $results ),  'wpp_properties_quantity' );
 
     return count($results);
 

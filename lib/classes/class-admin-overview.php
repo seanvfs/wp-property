@@ -345,6 +345,8 @@ namespace UsabilityDynamics\WPP {
        */
       public function get_post_statuses() {
         $all   = 0;
+        
+        // @todo When to purge?
         $_attrs = WPP_F::get_all_attribute_values('post_status');
         $attrs = array();
         if( is_array( $_attrs ) ) {
